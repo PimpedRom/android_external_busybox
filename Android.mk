@@ -18,7 +18,12 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(shell cat $(BB_PATH)/android/librpc.sources)
 LOCAL_C_INCLUDES := $(BB_PATH)/android/librpc
 LOCAL_MODULE := libuclibcrpc
-LOCAL_CFLAGS += -fno-strict-aliasing
+LOCAL_CFLAGS += -fno-strict-aliasing \
+    -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-vectorize -ftree-loop-im -ftree-loop-ivcanon -fivopts -ffast-math -fgcse-sm -fgcse-las -fweb -frename-registers \
+    -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
+    -faggressive-loop-optimizations \
+    -mtune=cortex-a15 \
+    -O3
 ifeq ($(BIONIC_L),true)
 LOCAL_CFLAGS += -DBIONIC_ICS -DBIONIC_L
 endif
